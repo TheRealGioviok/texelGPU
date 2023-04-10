@@ -305,7 +305,7 @@ def texel(weights: np.array, positions: np.array, targets: np.array, phases: np.
 def loadDataset(filename:str = "features.bin"):
     # The dataset contains already converted features. The file is in binary format.
     # Each byte represents a feature. The each item is 319 bytes long.
-    # The first 317 bytes are the features, the last byte is the target.
+    # The first 317 bytes are the features, 318 is gamephase, the last byte is the target.
     x,y,z = [],[],[]
     with open(filename, "rb") as f:
         while True:
@@ -319,7 +319,7 @@ def loadDataset(filename:str = "features.bin"):
             features = numpy.frombuffer(read, dtype=np.int8)
             # The first 317 features are normal features
             x.append(features[:317])
-            # The 317th feature is the gamephase, which we store separately (z)
+            # The 318th feature is the gamephase, which we store separately (z)
             z.append(features[317])
             # The last feature is the target
             y.append(features[318])
